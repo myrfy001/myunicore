@@ -1,0 +1,10 @@
+[workspace]
+members = [
+    "xtask",
+    "apps/helloworld",
+    "libs/pre-main",
+    "libs/stdio",
+    "ports/interface",
+    "ports/port-impl-export",
+    "ports/qemu-virt",
+]

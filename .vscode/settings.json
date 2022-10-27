@@ -1,0 +1,5 @@
+{
+    "rust-analyzer.cargo.extraEnv": {
+        "RUSTFLAGS": "--cfg libos_port_qemu_virt"
+    }
+}
