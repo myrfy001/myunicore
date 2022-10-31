@@ -1,5 +1,6 @@
-[build]
-# target="riscv64gc-unknown-none-elf"
+[target.'cfg(any(target_arch = "riscv32", target_arch = "riscv64"))']
 rustflags = [
-    "--cfg", "libos_port_qemu_virt"
+    "--cfg", "libos_port_qemu_virt",
+    "-C", "link-arg=-Tlink.x",
 ]
+

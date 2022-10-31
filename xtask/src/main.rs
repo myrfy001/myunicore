@@ -9,7 +9,8 @@ use std::{
     path::{Path, PathBuf},
 };
 
-const TARGET_ARCH: &str = "riscv64gc-unknown-none-elf";
+// const TARGET_ARCH: &str = "riscv64gc-unknown-none-elf";
+const TARGET_ARCH: &str = "riscv32imac-unknown-none-elf";
 
 static PROJECT: Lazy<&'static Path> =
     Lazy::new(|| Path::new(std::env!("CARGO_MANIFEST_DIR")).parent().unwrap());
@@ -56,7 +57,7 @@ struct BuildArgs {
 impl BuildArgs {
     fn make(&self) {
         Cargo::build()
-            .package("helloworld")
+            .package("blink")
             .optional(&self.log, |cargo, level| {
                 cargo.env("LOG", level);
             })
@@ -65,9 +66,9 @@ impl BuildArgs {
             .arg("-vv")
             .invoke();
         
-        let elf = TARGET.join("release").join("helloworld");
+        // let elf = TARGET.join("release").join("helloworld");
         
-        objcopy(elf, true);
+        // objcopy(elf, true);
     }
 
     fn asm(&self) {

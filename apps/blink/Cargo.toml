@@ -1,11 +1,15 @@
 [package]
-name = "qemu-virt"
+name = "blink"
 version = "0.1.0"
 edition = "2021"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-interface = {path="../_interface"}
-uart_16550 = "0.2.18"
-spin = "0.9.4"
+pre-main = {path="../../libs/_pre-main"}
+led = {path="../../libs/led"}
+
+
+[profile.release]
+debug = true
+opt-level = 0

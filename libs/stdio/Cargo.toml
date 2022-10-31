@@ -7,5 +7,5 @@ edition = "2021"
 
 [dependencies]
 spin = "0.9.4"
-port-impl-export = {path="../../ports/port-impl-export"}
-interface = {path="../../ports/interface"}
+port-impl-export = {path="../../ports/_port-impl-export"}
+interface = {path="../../ports/_interface"}

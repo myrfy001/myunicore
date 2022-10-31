@@ -1,0 +1,88 @@
+
+../../target/riscv32imac-unknown-none-elf/release/blink:     file format elf32-littleriscv
+
+
+Disassembly of section .text:
+
+00000000 <_start>:
+   0:	20001117          	auipc	sp,0x20001
+   4:	00010113          	mv	sp,sp
+   8:	0400006f          	j	48 <rust_main>
+	...
+
+0000000e <main>:
+   e:	1141                	addi	sp,sp,-16
+  10:	c606                	sw	ra,12(sp)
+  12:	00000097          	auipc	ra,0x0
+  16:	012080e7          	jalr	18(ra) # 24 <_ZN3led6led_on17h593f6f946de7df3eE>
+  1a:	00000097          	auipc	ra,0x0
+  1e:	01c080e7          	jalr	28(ra) # 36 <_ZN3led7led_off17h8b7a041eea4c50caE>
+  22:	bfc5                	j	12 <main+0x4>
+
+00000024 <_ZN3led6led_on17h593f6f946de7df3eE>:
+  24:	20001537          	lui	a0,0x20001
+  28:	00052503          	lw	a0,0(a0) # 20001000 <_ZN3led9PORT_IMPL17he7ea67d1f564581cE.0>
+  2c:	4585                	li	a1,1
+  2e:	00000317          	auipc	t1,0x0
+  32:	07e30067          	jr	126(t1) # ac <_ZN72_$LT$ch32v307..PortableCH32V307Impl$u20$as$u20$interface..PortIFGPIO$GT$9write_pin17h07662bae1d53d585E>
+
+00000036 <_ZN3led7led_off17h8b7a041eea4c50caE>:
+  36:	20001537          	lui	a0,0x20001
+  3a:	00052503          	lw	a0,0(a0) # 20001000 <_ZN3led9PORT_IMPL17he7ea67d1f564581cE.0>
+  3e:	4581                	li	a1,0
+  40:	00000317          	auipc	t1,0x0
+  44:	06c30067          	jr	108(t1) # ac <_ZN72_$LT$ch32v307..PortableCH32V307Impl$u20$as$u20$interface..PortIFGPIO$GT$9write_pin17h07662bae1d53d585E>
+
+00000048 <rust_main>:
+  48:	1141                	addi	sp,sp,-16
+  4a:	c606                	sw	ra,12(sp)
+  4c:	c422                	sw	s0,8(sp)
+  4e:	20000537          	lui	a0,0x20000
+  52:	00050413          	mv	s0,a0
+  56:	8522                	mv	a0,s0
+  58:	00000097          	auipc	ra,0x0
+  5c:	022080e7          	jalr	34(ra) # 7a <_ZN79_$LT$ch32v307..PortableCH32V307Impl$u20$as$u20$interface..PortIFSystemSetup$GT$11system_init17h821384a2f74ecdcfE>
+  60:	8522                	mv	a0,s0
+  62:	00000097          	auipc	ra,0x0
+  66:	016080e7          	jalr	22(ra) # 78 <_ZN5stdio4init17hb5d4b22ed4253a08E>
+  6a:	40b2                	lw	ra,12(sp)
+  6c:	4422                	lw	s0,8(sp)
+  6e:	0141                	addi	sp,sp,16
+  70:	00000317          	auipc	t1,0x0
+  74:	f9e30067          	jr	-98(t1) # e <main>
+
+00000078 <_ZN5stdio4init17hb5d4b22ed4253a08E>:
+  78:	8082                	ret
+
+0000007a <_ZN79_$LT$ch32v307..PortableCH32V307Impl$u20$as$u20$interface..PortIFSystemSetup$GT$11system_init17h821384a2f74ecdcfE>:
+  7a:	20001537          	lui	a0,0x20001
+  7e:	4585                	li	a1,1
+  80:	00b50223          	sb	a1,4(a0) # 20001004 <DEVICE_PERIPHERALS>
+  84:	40021537          	lui	a0,0x40021
+  88:	4d0c                	lw	a1,24(a0)
+  8a:	0205e593          	ori	a1,a1,32
+  8e:	cd0c                	sw	a1,24(a0)
+  90:	40011537          	lui	a0,0x40011
+  94:	40452583          	lw	a1,1028(a0) # 40011404 <_end+0x200103fc>
+  98:	f1000637          	lui	a2,0xf1000
+  9c:	167d                	addi	a2,a2,-1
+  9e:	8df1                	and	a1,a1,a2
+  a0:	07000637          	lui	a2,0x7000
+  a4:	8dd1                	or	a1,a1,a2
+  a6:	40b52223          	sw	a1,1028(a0)
+  aa:	8082                	ret
+
+000000ac <_ZN72_$LT$ch32v307..PortableCH32V307Impl$u20$as$u20$interface..PortIFGPIO$GT$9write_pin17h07662bae1d53d585E>:
+  ac:	20001537          	lui	a0,0x20001
+  b0:	4605                	li	a2,1
+  b2:	00c50223          	sb	a2,4(a0) # 20001004 <DEVICE_PERIPHERALS>
+  b6:	40011537          	lui	a0,0x40011
+  ba:	40c52603          	lw	a2,1036(a0) # 4001140c <_end+0x20010404>
+  be:	76f1                	lui	a3,0xffffc
+  c0:	16fd                	addi	a3,a3,-1
+  c2:	8e75                	and	a2,a2,a3
+  c4:	c199                	beqz	a1,ca <_ZN72_$LT$ch32v307..PortableCH32V307Impl$u20$as$u20$interface..PortIFGPIO$GT$9write_pin17h07662bae1d53d585E+0x1e>
+  c6:	6591                	lui	a1,0x4
+  c8:	8e4d                	or	a2,a2,a1
+  ca:	40c52623          	sw	a2,1036(a0)
+  ce:	8082                	ret

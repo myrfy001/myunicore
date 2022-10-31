@@ -1,11 +1,10 @@
 [package]
-name = "qemu-virt"
+name = "pre-main"
 version = "0.1.0"
 edition = "2021"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-interface = {path="../_interface"}
-uart_16550 = "0.2.18"
-spin = "0.9.4"
+port-impl-export = {path="../../ports/_port-impl-export"}
+stdio = {path="../stdio"}

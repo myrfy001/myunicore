@@ -7,4 +7,5 @@ edition = "2021"
 
 [dependencies]
 qemu-virt = {path="../qemu-virt"}
-interface = {path="../interface"}
+ch32v307 = {path="../ch32v307"}
+interface = {path="../_interface"}

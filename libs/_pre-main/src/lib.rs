@@ -2,7 +2,7 @@
 #![feature(linkage)]
 
 
-use port_impl_export::PortableImpl;
+use port_impl_export::{PortableImpl, PortIFSystemSetup};
 use stdio;
 
 #[linkage = "weak"]
@@ -21,8 +21,7 @@ pub fn main() {}
 
 #[no_mangle]
 pub fn rust_main() {
-    unsafe {PORTABLE_IMPL.init()};
-    
+    unsafe {PORTABLE_IMPL.system_init()};
     stdio::init(unsafe {&PORTABLE_IMPL});
     main();
 }

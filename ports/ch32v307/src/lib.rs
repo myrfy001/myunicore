@@ -3,33 +3,38 @@
 #![feature(naked_functions, asm_sym, asm_const)]
 #![feature(linkage)]
 
+extern crate riscv;
+// extern crate riscv_rt;
+
 use spin::{Once, Mutex};
-use uart_16550::MmioSerialPort;
 
 
-pub struct PortableQemuImpl;
+pub struct PortableCH32V307Impl;
 
-static UART0: Once<Mutex<MmioSerialPort>> = Once::new();
 
-impl interface::PortIFSystemSetup for PortableQemuImpl {
+
+impl interface::PortIFSystemSetup for PortableCH32V307Impl {
     fn system_init(&self) {
-        UART0.call_once(|| Mutex::new(unsafe { MmioSerialPort::new(0x1000_0000) }));
+        let peripherals = unsafe{ch32v3::Peripherals::steal()};
+        peripherals.RCC.apb2pcenr.modify(|_,w| w.iopden().set_bit());
+        peripherals.GPIOD.cfghr.modify(|_, w| unsafe{w.mode14().bits(0x03).cnf14().bits(0x01)});
+
     }
 }
 
-impl interface::PortIFConsoleIO for PortableQemuImpl {
+impl interface::PortIFConsoleIO for PortableCH32V307Impl {
     #[inline]
     fn console_getchar(&self) -> u8 {
-        UART0.wait().lock().receive()
+        return 0;
     }
 
     #[inline]
     fn console_putchar(&self, c: u8) {
-        UART0.wait().lock().send(c)
+        
     }
 }
 
-impl interface::PortIFTimer for PortableQemuImpl {
+impl interface::PortIFTimer for PortableCH32V307Impl {
 
 }
 
@@ -43,16 +48,22 @@ impl core::convert::Into<usize> for PinList {
     }
 }
 
-impl interface::PortIFGPIO for PortableQemuImpl {
+impl interface::PortIFGPIO for PortableCH32V307Impl {
     type PinList = PinList;
-    fn write_pin(&self, pin_id: Self::PinList, value: bool) {}
+    fn write_pin(&self, pin_id: Self::PinList, value: bool) {
+        let peripherals = unsafe{ch32v3::Peripherals::steal()};
+        match pin_id {
+            PinList::Led => peripherals.GPIOD.outdr.modify(|_,w| w.odr14().bit(value)),
+        };
+    }
+ 
 }
 
-impl interface::PortInterface for PortableQemuImpl{}
+impl interface::PortInterface for PortableCH32V307Impl{}
 
-impl PortableQemuImpl {
+impl PortableCH32V307Impl {
     pub fn new() -> Self {
-        return PortableQemuImpl{}
+        return PortableCH32V307Impl{}
     }
 
 }

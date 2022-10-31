@@ -1,6 +1,9 @@
 
 #![no_std]
 
+pub trait PortIFSystemSetup {
+    fn system_init(&self);
+}
 
 pub trait PortIFConsoleIO {
     fn console_getchar(&self) -> u8;
@@ -17,7 +20,14 @@ pub trait PortIFTimer {
 
 }
 
-pub trait PortInterface: 
+pub trait PortIFGPIO {
+    type PinList: core::convert::Into<usize>;
+    fn write_pin(&self, pin_id: Self::PinList, value: bool);
+}
+
+pub trait PortInterface:
+    PortIFSystemSetup +
     PortIFConsoleIO + 
-    PortIFTimer
+    PortIFTimer + 
+    PortIFGPIO
     {}

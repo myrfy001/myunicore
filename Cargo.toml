@@ -2,9 +2,12 @@
 members = [
     "xtask",
     "apps/helloworld",
-    "libs/pre-main",
+    "apps/blink",
+    "libs/_pre-main",
     "libs/stdio",
-    "ports/interface",
-    "ports/port-impl-export",
+    "libs/led",
+    "ports/_interface",
+    "ports/_port-impl-export",
     "ports/qemu-virt",
+    "ports/ch32v307",
 ]
